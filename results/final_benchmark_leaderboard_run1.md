@@ -7,8 +7,8 @@ This document provides a comprehensive comparison of all trained models based on
 | Model | Accuracy | Precision (Churn) | Recall (Churn) | F1 Score | Training Time (s) | Total Rules | Logical Conditions |
 |-------|----------|-------------------|----------------|----------|-------------------|-------------|--------------------|
 | **XGBoost** | 0.9349 | 0.8018 | 0.8237 | **0.8124** | 0.1968 | Black-box | Black-box |
-| **RIPPER** | 0.8790 | 0.6931 | 0.5595 | **0.5917** | 6.8399 | 88 | 307 |
-| **CORELS** | 0.8651 | 0.7112 | 0.3570 | **0.4752** | 0.0549 | 1 | 2 |
+| **RIPPER** | 0.8790 | 0.6931 | 0.5595 | **0.5917** | 7.2614 | 88 | 307 |
+| **CORELS** | 0.8651 | 0.7112 | 0.3570 | **0.4752** | 0.0541 | 1 | 2 |
 
 ## 2. Rankings
 

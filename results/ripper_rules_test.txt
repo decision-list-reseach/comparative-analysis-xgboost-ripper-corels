@@ -1,0 +1,858 @@
+RIPPER Rule Set
+================
+
+Model parameters:
+k            = 1
+prune_size   = 0.33
+dl_allowance = 128
+random_state = 42
+
+================================
+Rules
+================================
+
+Rule 1
+IF
+Tenure <= 1.0
+AND Complain ∈ [0.39, 0.95]
+
+THEN Churn
+
+------------------------
+
+Rule 2
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND DaySinceLastOrder <= 1.0
+AND MaritalStatus_Married <= 0.15
+
+THEN Churn
+
+------------------------
+
+Rule 3
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND MaritalStatus_Married ∈ [0.15, 0.78]
+
+THEN Churn
+
+------------------------
+
+Rule 4
+IF
+Tenure <= 1.0
+AND NumberOfDeviceRegistered ∈ [3.0, 3.96]
+
+THEN Churn
+
+------------------------
+
+Rule 5
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND MaritalStatus_Married <= 0.15
+AND SatisfactionScore ∈ [2.0, 3.0]
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+
+THEN Churn
+
+------------------------
+
+Rule 6
+IF
+Tenure <= 1.0
+AND MaritalStatus_Single >= 0.56
+AND NumberOfAddress ∈ [6.52, 8.24]
+
+THEN Churn
+
+------------------------
+
+Rule 7
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND MaritalStatus_Married ∈ [0.15, 0.78]
+
+THEN Churn
+
+------------------------
+
+Rule 8
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND MaritalStatus_Single >= 0.56
+AND DaySinceLastOrder ∈ [5.0, 7.0]
+
+THEN Churn
+
+------------------------
+
+Rule 9
+IF
+Tenure <= 1.0
+AND CashbackAmount ∈ [199.81, 229.45]
+AND MaritalStatus_Married <= 0.15
+
+THEN Churn
+
+------------------------
+
+Rule 10
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND DaySinceLastOrder ∈ [7.0, 8.01]
+
+THEN Churn
+
+------------------------
+
+Rule 11
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND DaySinceLastOrder <= 1.0
+AND WarehouseToHome ∈ [24.0, 30.0]
+
+THEN Churn
+
+------------------------
+
+Rule 12
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND SatisfactionScore >= 4.73
+AND NumberOfAddress >= 8.24
+
+THEN Churn
+
+------------------------
+
+Rule 13
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Mobile Phone >= 0.25
+AND NumberOfDeviceRegistered ∈ [4.0, 4.44]
+
+THEN Churn
+
+------------------------
+
+Rule 14
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND CashbackAmount ∈ [145.01, 149.09]
+AND WarehouseToHome ∈ [24.0, 30.0]
+
+THEN Churn
+
+------------------------
+
+Rule 15
+IF
+Tenure <= 1.0
+AND SatisfactionScore ∈ [3.0, 3.88]
+
+THEN Churn
+
+------------------------
+
+Rule 16
+IF
+CashbackAmount <= 123.73
+AND MaritalStatus_Single >= 0.56
+AND Complain >= 0.95
+
+THEN Churn
+
+------------------------
+
+Rule 17
+IF
+MaritalStatus_Married ∈ [0.15, 0.78]
+
+THEN Churn
+
+------------------------
+
+Rule 18
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND SatisfactionScore >= 4.73
+AND MaritalStatus_Single >= 0.56
+AND DaySinceLastOrder ∈ [3.0, 5.0]
+
+THEN Churn
+
+------------------------
+
+Rule 19
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Mobile Phone >= 0.25
+AND MaritalStatus_Single >= 0.56
+AND DaySinceLastOrder <= 1.0
+AND WarehouseToHome ∈ [7.0, 9.0]
+
+THEN Churn
+
+------------------------
+
+Rule 20
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND SatisfactionScore ∈ [4.0, 4.73]
+
+THEN Churn
+
+------------------------
+
+Rule 21
+IF
+Tenure <= 1.0
+AND WarehouseToHome ∈ [18.0, 24.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+AND NumberOfAddress ∈ [2.47, 3.0]
+
+THEN Churn
+
+------------------------
+
+Rule 22
+IF
+Tenure <= 1.0
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND SatisfactionScore >= 4.73
+AND MaritalStatus_Single >= 0.56
+
+THEN Churn
+
+------------------------
+
+Rule 23
+IF
+Tenure <= 1.0
+AND NumberOfAddress ∈ [5.0, 6.52]
+
+THEN Churn
+
+------------------------
+
+Rule 24
+IF
+NumberOfDeviceRegistered ∈ [3.0, 3.96]
+
+THEN Churn
+
+------------------------
+
+Rule 25
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND NumberOfAddress >= 8.24
+
+THEN Churn
+
+------------------------
+
+Rule 26
+IF
+Tenure <= 1.0
+AND SatisfactionScore ∈ [2.0, 3.0]
+AND NumberOfAddress ∈ [4.0, 5.0]
+
+THEN Churn
+
+------------------------
+
+Rule 27
+IF
+Tenure <= 1.0
+AND WarehouseToHome ∈ [18.0, 24.0]
+AND NumberOfAddress ∈ [6.52, 8.24]
+
+THEN Churn
+
+------------------------
+
+Rule 28
+IF
+Tenure <= 1.0
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+AND Complain <= 0.39
+
+THEN Churn
+
+------------------------
+
+Rule 29
+IF
+CashbackAmount <= 123.73
+AND DaySinceLastOrder <= 1.0
+AND MaritalStatus_Married <= 0.15
+AND SatisfactionScore ∈ [3.0, 3.88]
+
+THEN Churn
+
+------------------------
+
+Rule 30
+IF
+Complain >= 0.95
+AND PreferedOrderCat_Mobile >= 0.9
+AND CashbackAmount <= 123.73
+AND MaritalStatus_Divorced <= 0.94
+
+THEN Churn
+
+------------------------
+
+Rule 31
+IF
+MaritalStatus_Single >= 0.56
+AND Complain ∈ [0.39, 0.95]
+
+THEN Churn
+
+------------------------
+
+Rule 32
+IF
+Complain >= 0.95
+AND MaritalStatus_Married <= 0.15
+AND Tenure ∈ [2.0, 5.0]
+AND MaritalStatus_Divorced <= 0.94
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND PreferedOrderCat_Fashion <= 0.1
+
+THEN Churn
+
+------------------------
+
+Rule 33
+IF
+Tenure <= 1.0
+AND MaritalStatus_Single >= 0.56
+AND SatisfactionScore ∈ [3.88, 4.0]
+AND CashbackAmount ∈ [149.09, 155.33]
+AND Complain <= 0.39
+
+THEN Churn
+
+------------------------
+
+Rule 34
+IF
+Tenure <= 1.0
+AND SatisfactionScore >= 4.73
+AND WarehouseToHome ∈ [15.19, 18.0]
+AND CashbackAmount ∈ [131.41, 145.01]
+
+THEN Churn
+
+------------------------
+
+Rule 35
+IF
+Tenure <= 1.0
+AND DaySinceLastOrder >= 8.01
+AND CashbackAmount ∈ [166.52, 179.66]
+
+THEN Churn
+
+------------------------
+
+Rule 36
+IF
+Complain >= 0.95
+AND NumberOfAddress >= 8.24
+AND MaritalStatus_Married <= 0.15
+AND PreferedOrderCat_Fashion >= 0.9
+
+THEN Churn
+
+------------------------
+
+Rule 37
+IF
+Tenure <= 1.0
+AND WarehouseToHome ∈ [18.0, 24.0]
+AND CashbackAmount ∈ [166.52, 179.66]
+
+THEN Churn
+
+------------------------
+
+Rule 38
+IF
+Complain >= 0.95
+AND MaritalStatus_Married <= 0.15
+AND NumberOfDeviceRegistered ∈ [4.0, 4.44]
+
+THEN Churn
+
+------------------------
+
+Rule 39
+IF
+DaySinceLastOrder <= 1.0
+AND CashbackAmount <= 123.73
+AND MaritalStatus_Married <= 0.15
+AND MaritalStatus_Divorced <= 0.94
+AND NumberOfAddress ∈ [3.0, 4.0]
+
+THEN Churn
+
+------------------------
+
+Rule 40
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND CashbackAmount ∈ [155.33, 166.52]
+
+THEN Churn
+
+------------------------
+
+Rule 41
+IF
+SatisfactionScore ∈ [3.0, 3.88]
+
+THEN Churn
+
+------------------------
+
+Rule 42
+IF
+DaySinceLastOrder <= 1.0
+AND CashbackAmount <= 123.73
+AND SatisfactionScore >= 4.73
+AND PreferedOrderCat_Mobile Phone >= 0.25
+
+THEN Churn
+
+------------------------
+
+Rule 43
+IF
+SatisfactionScore ∈ [4.0, 4.73]
+
+THEN Churn
+
+------------------------
+
+Rule 44
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+AND Tenure ∈ [14.0, 19.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+AND MaritalStatus_Married >= 0.78
+
+THEN Churn
+
+------------------------
+
+Rule 45
+IF
+Complain >= 0.95
+AND PreferedOrderCat_Mobile >= 0.9
+AND WarehouseToHome ∈ [24.0, 30.0]
+
+THEN Churn
+
+------------------------
+
+Rule 46
+IF
+DaySinceLastOrder <= 1.0
+AND Complain >= 0.95
+AND Tenure ∈ [2.0, 5.0]
+AND NumberOfDeviceRegistered ∈ [3.96, 4.0]
+AND MaritalStatus_Married <= 0.15
+
+THEN Churn
+
+------------------------
+
+Rule 47
+IF
+DaySinceLastOrder <= 1.0
+AND PreferedOrderCat_Mobile >= 0.9
+AND Complain >= 0.95
+AND MaritalStatus_Divorced <= 0.94
+AND WarehouseToHome ∈ [12.39, 14.0]
+
+THEN Churn
+
+------------------------
+
+Rule 48
+IF
+DaySinceLastOrder <= 1.0
+AND MaritalStatus_Single >= 0.56
+AND WarehouseToHome ∈ [12.39, 14.0]
+AND PreferedOrderCat_Mobile >= 0.9
+AND SatisfactionScore <= 2.0
+
+THEN Churn
+
+------------------------
+
+Rule 49
+IF
+Tenure <= 1.0
+AND Complain >= 0.95
+AND CashbackAmount ∈ [179.66, 199.81]
+
+THEN Churn
+
+------------------------
+
+Rule 50
+IF
+Complain >= 0.95
+AND NumberOfAddress >= 8.24
+AND PreferedOrderCat_Mobile Phone >= 0.25
+AND Tenure ∈ [14.0, 19.0]
+
+THEN Churn
+
+------------------------
+
+Rule 51
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND CashbackAmount <= 123.73
+AND MaritalStatus_Single >= 0.56
+AND SatisfactionScore ∈ [2.0, 3.0]
+AND WarehouseToHome ∈ [7.0, 9.0]
+AND PreferedOrderCat_Mobile <= 0.1
+
+THEN Churn
+
+------------------------
+
+Rule 52
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+AND SatisfactionScore <= 2.0
+AND WarehouseToHome ∈ [12.39, 14.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+
+THEN Churn
+
+------------------------
+
+Rule 53
+IF
+Complain >= 0.95
+AND NumberOfAddress >= 8.24
+AND CashbackAmount ∈ [145.01, 149.09]
+
+THEN Churn
+
+------------------------
+
+Rule 54
+IF
+Tenure <= 1.0
+AND SatisfactionScore >= 4.73
+AND WarehouseToHome ∈ [7.0, 9.0]
+
+THEN Churn
+
+------------------------
+
+Rule 55
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND WarehouseToHome ∈ [18.0, 24.0]
+AND DaySinceLastOrder ∈ [5.0, 7.0]
+AND CashbackAmount ∈ [199.81, 229.45]
+
+THEN Churn
+
+------------------------
+
+Rule 56
+IF
+Tenure ∈ [1.0, 2.0]
+AND SatisfactionScore >= 4.73
+AND WarehouseToHome >= 30.0
+
+THEN Churn
+
+------------------------
+
+Rule 57
+IF
+NumberOfDeviceRegistered ∈ [4.0, 4.44]
+
+THEN Churn
+
+------------------------
+
+Rule 58
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND Complain >= 0.95
+AND SatisfactionScore ∈ [3.88, 4.0]
+AND MaritalStatus_Married <= 0.15
+AND CashbackAmount >= 229.45
+AND PreferedOrderCat_Grocery <= 0.1
+
+THEN Churn
+
+------------------------
+
+Rule 59
+IF
+Complain ∈ [0.39, 0.95]
+
+THEN Churn
+
+------------------------
+
+Rule 60
+IF
+DaySinceLastOrder <= 1.0
+AND CashbackAmount <= 123.73
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+
+THEN Churn
+
+------------------------
+
+Rule 61
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND WarehouseToHome ∈ [18.0, 24.0]
+AND SatisfactionScore <= 2.0
+AND MaritalStatus_Single <= 0.56
+AND NumberOfDeviceRegistered <= 3.0
+
+THEN Churn
+
+------------------------
+
+Rule 62
+IF
+Complain >= 0.95
+AND PreferedOrderCat_Mobile >= 0.9
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+
+THEN Churn
+
+------------------------
+
+Rule 63
+IF
+DaySinceLastOrder <= 1.0
+AND CashbackAmount ∈ [149.09, 155.33]
+AND Tenure >= 19.0
+AND NumberOfDeviceRegistered ∈ [3.96, 4.0]
+
+THEN Churn
+
+------------------------
+
+Rule 64
+IF
+Tenure ∈ [1.0, 2.0]
+AND NumberOfAddress ∈ [5.0, 6.52]
+
+THEN Churn
+
+------------------------
+
+Rule 65
+IF
+Complain >= 0.95
+AND MaritalStatus_Married <= 0.15
+AND SatisfactionScore ∈ [2.0, 3.0]
+AND CashbackAmount ∈ [123.73, 131.41]
+
+THEN Churn
+
+------------------------
+
+Rule 66
+IF
+Complain >= 0.95
+AND MaritalStatus_Single >= 0.56
+AND WarehouseToHome <= 7.0
+AND PreferedOrderCat_Laptop & Accessory >= 0.49
+
+THEN Churn
+
+------------------------
+
+Rule 67
+IF
+Tenure <= 1.0
+AND NumberOfAddress >= 8.24
+AND WarehouseToHome ∈ [15.19, 18.0]
+
+THEN Churn
+
+------------------------
+
+Rule 68
+IF
+Complain >= 0.95
+AND WarehouseToHome >= 30.0
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+
+THEN Churn
+
+------------------------
+
+Rule 69
+IF
+CashbackAmount <= 123.73
+AND DaySinceLastOrder <= 1.0
+AND WarehouseToHome ∈ [10.0, 12.39]
+
+THEN Churn
+
+------------------------
+
+Rule 70
+IF
+PreferedOrderCat_Laptop & Accessory <= 0.49
+AND WarehouseToHome ∈ [15.19, 18.0]
+AND CashbackAmount ∈ [166.52, 179.66]
+
+THEN Churn
+
+------------------------
+
+Rule 71
+IF
+MaritalStatus_Married <= 0.15
+AND WarehouseToHome >= 30.0
+AND SatisfactionScore >= 4.73
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+
+THEN Churn
+
+------------------------
+
+Rule 72
+IF
+CashbackAmount ∈ [199.81, 229.45]
+AND DaySinceLastOrder ∈ [7.0, 8.01]
+AND SatisfactionScore <= 2.0
+AND PreferedOrderCat_Fashion >= 0.9
+
+THEN Churn
+
+------------------------
+
+Rule 73
+IF
+CashbackAmount ∈ [145.01, 149.09]
+AND WarehouseToHome ∈ [12.39, 14.0]
+AND NumberOfAddress >= 8.24
+
+THEN Churn
+
+------------------------
+
+Rule 74
+IF
+MaritalStatus_Married <= 0.15
+AND Complain >= 0.95
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+AND NumberOfAddress ∈ [6.52, 8.24]
+AND SatisfactionScore >= 4.73
+
+THEN Churn
+
+------------------------
+
+Rule 75
+IF
+PreferedOrderCat_Mobile Phone >= 0.25
+AND Complain >= 0.95
+AND NumberOfAddress ∈ [2.47, 3.0]
+AND SatisfactionScore ∈ [2.0, 3.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+
+THEN Churn
+
+------------------------
+
+Rule 76
+IF
+Complain >= 0.95
+AND SatisfactionScore ∈ [3.88, 4.0]
+AND WarehouseToHome >= 30.0
+AND PreferedOrderCat_Fashion >= 0.9
+
+THEN Churn
+
+------------------------
+
+Rule 77
+IF
+Tenure ∈ [2.0, 5.0]
+AND PreferedOrderCat_Others=1.0
+
+THEN Churn
+
+------------------------
+
+Rule 78
+IF
+Tenure <= 1.0
+AND NumberOfAddress ∈ [6.52, 8.24]
+AND PreferedOrderCat_Laptop & Accessory <= 0.49
+
+THEN Churn
+
+------------------------
+
+Rule 79
+IF
+SatisfactionScore >= 4.73
+AND Tenure ∈ [5.0, 9.0]
+AND DaySinceLastOrder <= 1.0
+AND WarehouseToHome ∈ [15.19, 18.0]
+
+THEN Churn
+
+------------------------
+
+Rule 80
+IF
+Tenure ∈ [1.0, 2.0]
+AND NumberOfDeviceRegistered ∈ [4.44, 5.0]
+AND DaySinceLastOrder ∈ [2.02, 3.0]
+
+THEN Churn
+
+------------------------
+
+================================
+
+Total rules: 80
+
+Average conditions per rule: 3.48
+
+Total logical conditions: 278
