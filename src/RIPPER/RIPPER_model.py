@@ -12,6 +12,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import f1_score
 from sklearn.model_selection import StratifiedKFold
 
+import argparse
+
 # ---------------------------------------------------------------------------
 # Paths & shared utilities
 # ---------------------------------------------------------------------------
@@ -22,11 +24,33 @@ sys.path.append(parent_dir)
 from utils import save_scores
 
 # ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument("--dataset", type=str, default="ecommerce", choices=["ecommerce", "telco"])
+args = parser.parse_args()
+
+# ---------------------------------------------------------------------------
 # Data loading & encoding
 # ---------------------------------------------------------------------------
-csv_path = os.path.join(parent_dir, 'data', 'data_ecommerce_customer_churn.csv')
-df = pd.read_csv(csv_path)
-df = pd.get_dummies(df, columns=["PreferedOrderCat", "MaritalStatus"])
+if args.dataset == "ecommerce":
+    csv_path = os.path.join(project_root, 'data', 'ecommerce', 'data_ecommerce_customer_churn.csv')
+    df = pd.read_csv(csv_path)
+    df = pd.get_dummies(df, columns=["PreferedOrderCat", "MaritalStatus"])
+else:
+    csv_path = os.path.join(project_root, 'data', 'telco', 'TEST_telco_customer_churn.csv')
+    df = pd.read_csv(csv_path)
+    if 'customerID' in df.columns:
+        df = df.drop('customerID', axis=1)
+    if 'TotalCharges' in df.columns and df['TotalCharges'].dtype == object:
+        df['TotalCharges'] = pd.to_numeric(df['TotalCharges'].replace(r'^\s*$', 'NaN', regex=True), errors='coerce')
+    if 'Churn' in df.columns and set(df['Churn'].dropna().unique()).issubset({'Yes', 'No'}):
+        df['Churn'] = df['Churn'].map({'Yes': 1, 'No': 0})
+        
+    nominal_cols = ["gender", "Partner", "Dependents", "PhoneService", "MultipleLines", "InternetService", 
+                    "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", 
+                    "StreamingMovies", "Contract", "PaperlessBilling", "PaymentMethod"]
+    df = pd.get_dummies(df, columns=[c for c in nominal_cols if c in df.columns])
 
 y = df['Churn']
 X = df.drop('Churn', axis=1)
@@ -39,7 +63,7 @@ skf      = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 pipeline = None  # will hold the last fold's fitted pipeline
 
 print("=" * 60)
-print("RIPPER  —  5-Fold Stratified Cross-Validation")
+print(f"RIPPER  —  5-Fold Stratified Cross-Validation ({args.dataset})")
 print("=" * 60)
 
 for fold, (train_idx, test_idx) in enumerate(skf.split(X, y), start=1):
@@ -66,12 +90,12 @@ for fold, (train_idx, test_idx) in enumerate(skf.split(X, y), start=1):
           f" | train F1: {f1_score(y_train, train_pred):.4f}"
           f" | test F1: {f1_score(y_test, preds):.4f}")
 
-    save_scores("scores_from_ripper", current_dir, y_test, preds, time_needed)
+    save_scores("scores_from_ripper", current_dir, y_test, preds, time_needed, dataset=args.dataset)
 
 # ---------------------------------------------------------------------------
 # Rule export — from the last fold's fitted model
 # ---------------------------------------------------------------------------
-results_dir     = os.path.join(parent_dir, 'results')
+results_dir     = os.path.join(project_root, 'results', args.dataset)
 os.makedirs(results_dir, exist_ok=True)
 ripper_rules_path = os.path.join(results_dir, 'ripper_rules_test.txt')
 

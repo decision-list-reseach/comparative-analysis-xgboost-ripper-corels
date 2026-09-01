@@ -1,0 +1,19 @@
+{
+    "Accuracy": 0.8567807351077313,
+    "Precision": 0.6774193548387096,
+    "Recall": 0.3111111111111111,
+    "F1_Score": 0.4263959390862944,
+    "Training_Time_Seconds": 0.054085833951830864,
+    "Number_of_Rules": 2,
+    "Average_Rule_Length": 2.0,
+    "Confusion_Matrix": [
+        [
+            634,
+            20
+        ],
+        [
+            93,
+            42
+        ]
+    ]
+}
