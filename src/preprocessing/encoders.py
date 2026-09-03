@@ -55,13 +55,19 @@ class StepEncoder(BaseEstimator, TransformerMixin):
                 output_cols.append(f"{col_name}_>={thresh_str}")
                 
         if not out_data:
-            return np.empty((X.shape[0], 0))
+            empty_arr = np.empty((X.shape[0], 0))
+            if isinstance(X, pd.DataFrame):
+                return pd.DataFrame(empty_arr, index=X.index)
+            return empty_arr
             
         transformed_X = np.column_stack(out_data)
         
         # Scikit-learn API expects numpy array returned.
         # We also attach column names for downstream retrieval.
         self._output_columns = output_cols
+        
+        if isinstance(X, pd.DataFrame):
+            return pd.DataFrame(transformed_X, columns=output_cols, index=X.index)
         return transformed_X
 
     def get_feature_names_out(self, input_features=None):

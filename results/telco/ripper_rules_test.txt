@@ -1,0 +1,512 @@
+RIPPER Rule Set
+================
+
+Model parameters:
+k            = 1
+prune_size   = 0.33
+dl_allowance = 128
+random_state = 42
+
+================================
+Rules
+================================
+
+Rule 1
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND Partner_No >= 0.18
+AND InternetService_DSL <= 0.67
+AND tenure <= 1.0
+AND PaymentMethod_Mailed check <= 0.6
+AND MultipleLines_No <= 0.19
+AND gender_Female <= 0.45
+
+THEN Churn
+
+------------------------
+
+Rule 2
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND Partner_No >= 0.18
+AND tenure <= 1.0
+AND TotalCharges <= 73.44
+AND SeniorCitizen <= 0.43
+AND PaperlessBilling_No <= 0.1
+
+THEN Churn
+
+------------------------
+
+Rule 3
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND Partner_No >= 0.18
+AND StreamingTV_No <= 0.9
+AND TechSupport_No >= 0.33
+AND OnlineBackup_Yes <= 0.77
+AND StreamingMovies_No <= 0.85
+AND StreamingMovies_Yes <= 0.56
+
+THEN Churn
+
+------------------------
+
+Rule 4
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND Partner_No >= 0.18
+AND StreamingTV_No <= 0.9
+AND TechSupport_No >= 0.33
+AND StreamingTV_Yes <= 0.47
+
+THEN Churn
+
+------------------------
+
+Rule 5
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND Partner_No >= 0.18
+AND TotalCharges ∈ [73.44, 170.81]
+AND OnlineBackup_Yes <= 0.77
+AND MonthlyCharges ∈ [74.9, 80.8]
+
+THEN Churn
+
+------------------------
+
+Rule 6
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND StreamingMovies_No <= 0.85
+AND OnlineBackup_Yes <= 0.77
+AND MonthlyCharges ∈ [94.8, 101.91]
+AND Partner_No >= 0.18
+AND tenure ∈ [7.36, 13.0]
+
+THEN Churn
+
+------------------------
+
+Rule 7
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND tenure <= 1.0
+AND InternetService_DSL <= 0.67
+
+THEN Churn
+
+------------------------
+
+Rule 8
+IF
+Contract_Month-to-month >= 0.9
+AND TechSupport_No >= 0.33
+AND Partner_No >= 0.18
+AND StreamingMovies_No <= 0.85
+AND StreamingMovies_Yes <= 0.56
+
+THEN Churn
+
+------------------------
+
+Rule 9
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND Partner_No >= 0.18
+AND TotalCharges ∈ [170.81, 383.15]
+AND PaymentMethod_Bank transfer (automatic) >= 0.37
+
+THEN Churn
+
+------------------------
+
+Rule 10
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND StreamingMovies_No <= 0.85
+AND OnlineBackup_Yes <= 0.77
+AND SeniorCitizen >= 0.43
+AND MultipleLines_No <= 0.19
+AND Dependents_No >= 0.9
+AND PaymentMethod_Bank transfer (automatic) <= 0.37
+AND DeviceProtection_No <= 0.63
+
+THEN Churn
+
+------------------------
+
+Rule 11
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND DeviceProtection_Yes <= 0.74
+AND StreamingMovies_No <= 0.85
+AND OnlineBackup_Yes <= 0.77
+AND DeviceProtection_No <= 0.63
+
+THEN Churn
+
+------------------------
+
+Rule 12
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND PaymentMethod_Electronic check >= 0.61
+AND TechSupport_No >= 0.33
+AND Partner_No >= 0.18
+AND TotalCharges ∈ [170.81, 383.15]
+
+THEN Churn
+
+------------------------
+
+Rule 13
+IF
+Contract_Month-to-month >= 0.9
+AND TechSupport_No >= 0.33
+AND PaymentMethod_Electronic check >= 0.61
+AND Partner_No >= 0.18
+AND OnlineSecurity_No >= 0.4
+AND PhoneService_No >= 0.16
+
+THEN Churn
+
+------------------------
+
+Rule 14
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND StreamingTV_No <= 0.9
+AND TechSupport_No >= 0.33
+AND StreamingMovies_No <= 0.85
+AND TotalCharges ∈ [383.15, 738.13]
+AND SeniorCitizen <= 0.43
+AND MultipleLines_Yes <= 0.93
+
+THEN Churn
+
+------------------------
+
+Rule 15
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND PaymentMethod_Electronic check >= 0.61
+AND MonthlyCharges ∈ [80.8, 88.55]
+AND TotalCharges ∈ [383.15, 738.13]
+AND SeniorCitizen <= 0.43
+
+THEN Churn
+
+------------------------
+
+Rule 16
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND PaymentMethod_Electronic check >= 0.61
+AND MultipleLines_No <= 0.19
+AND tenure ∈ [13.0, 21.0]
+AND MonthlyCharges ∈ [80.8, 88.55]
+
+THEN Churn
+
+------------------------
+
+Rule 17
+IF
+Contract_Month-to-month >= 0.9
+AND TechSupport_No >= 0.33
+AND InternetService_DSL <= 0.67
+AND StreamingTV_No <= 0.9
+AND StreamingMovies_No <= 0.85
+AND OnlineBackup_Yes <= 0.77
+AND Partner_No >= 0.18
+
+THEN Churn
+
+------------------------
+
+Rule 18
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND SeniorCitizen >= 0.43
+AND Partner_No >= 0.18
+AND PaymentMethod_Bank transfer (automatic) <= 0.37
+AND TotalCharges ∈ [738.13, 1152.18]
+AND gender_Female >= 0.45
+
+THEN Churn
+
+------------------------
+
+Rule 19
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND PaymentMethod_Electronic check >= 0.61
+AND OnlineBackup_No <= 0.59
+AND Partner_No >= 0.18
+AND TotalCharges ∈ [1715.35, 2627.24]
+AND DeviceProtection_Yes <= 0.74
+
+THEN Churn
+
+------------------------
+
+Rule 20
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND TotalCharges <= 73.44
+AND SeniorCitizen >= 0.43
+AND gender_Female >= 0.45
+
+THEN Churn
+
+------------------------
+
+Rule 21
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND tenure ∈ [1.0, 3.0]
+AND StreamingMovies_No <= 0.85
+AND PaperlessBilling_No <= 0.1
+
+THEN Churn
+
+------------------------
+
+Rule 22
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND PaymentMethod_Electronic check >= 0.61
+AND InternetService_DSL <= 0.67
+AND StreamingTV_No <= 0.9
+AND TotalCharges ∈ [1152.18, 1715.35]
+
+THEN Churn
+
+------------------------
+
+Rule 23
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND tenure ∈ [3.0, 7.36]
+AND MultipleLines_No <= 0.19
+AND gender_Female <= 0.45
+AND StreamingMovies_Yes <= 0.56
+
+THEN Churn
+
+------------------------
+
+Rule 24
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND tenure ∈ [7.36, 13.0]
+AND OnlineBackup_No <= 0.59
+AND StreamingMovies_Yes <= 0.56
+
+THEN Churn
+
+------------------------
+
+Rule 25
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND OnlineBackup_Yes <= 0.77
+AND DeviceProtection_Yes <= 0.74
+AND Partner_No >= 0.18
+AND MultipleLines_Yes <= 0.93
+AND gender_Female >= 0.45
+
+THEN Churn
+
+------------------------
+
+Rule 26
+IF
+Contract_Month-to-month >= 0.9
+AND TechSupport_No >= 0.33
+AND StreamingTV_No <= 0.9
+AND Partner_No >= 0.18
+AND tenure ∈ [21.0, 30.33]
+
+THEN Churn
+
+------------------------
+
+Rule 27
+IF
+Contract_Month-to-month >= 0.9
+AND tenure <= 1.0
+AND PaperlessBilling_No <= 0.1
+AND Partner_No >= 0.18
+AND MonthlyCharges <= 20.35
+AND Dependents_No >= 0.9
+
+THEN Churn
+
+------------------------
+
+Rule 28
+IF
+TechSupport_No >= 0.33
+AND OnlineSecurity_No >= 0.4
+AND OnlineBackup_Yes <= 0.77
+AND Partner_No >= 0.18
+AND OnlineBackup_No <= 0.59
+
+THEN Churn
+
+------------------------
+
+Rule 29
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND gender_Female <= 0.45
+AND TotalCharges <= 73.44
+AND MultipleLines_Yes <= 0.93
+AND PaymentMethod_Mailed check <= 0.6
+
+THEN Churn
+
+------------------------
+
+Rule 30
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineBackup_No >= 0.59
+AND tenure ∈ [1.0, 3.0]
+AND TechSupport_No >= 0.33
+AND InternetService_DSL >= 0.67
+AND DeviceProtection_Yes <= 0.74
+AND Partner_No >= 0.18
+AND PaymentMethod_Electronic check >= 0.61
+
+THEN Churn
+
+------------------------
+
+Rule 31
+IF
+TechSupport_No >= 0.33
+AND DeviceProtection_Yes <= 0.74
+AND DeviceProtection_No <= 0.63
+
+THEN Churn
+
+------------------------
+
+Rule 32
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND TechSupport_No >= 0.33
+AND DeviceProtection_No >= 0.63
+AND tenure ∈ [1.0, 3.0]
+AND PaymentMethod_Credit card (automatic) >= 0.31
+AND OnlineBackup_No >= 0.59
+
+THEN Churn
+
+------------------------
+
+Rule 33
+IF
+Contract_Month-to-month >= 0.9
+AND OnlineSecurity_No >= 0.4
+AND InternetService_DSL <= 0.67
+AND tenure ∈ [3.0, 7.36]
+AND TechSupport_No <= 0.33
+
+THEN Churn
+
+------------------------
+
+Rule 34
+IF
+Contract_Month-to-month >= 0.9
+AND InternetService_Fiber optic >= 0.9
+AND StreamingTV_No <= 0.9
+AND StreamingTV_Yes <= 0.47
+
+THEN Churn
+
+------------------------
+
+Rule 35
+IF
+Contract_Month-to-month >= 0.9
+AND tenure <= 1.0
+AND PaymentMethod_Mailed check >= 0.6
+AND InternetService_No >= 0.9
+AND gender_Female >= 0.45
+AND MonthlyCharges ∈ [20.35, 35.44]
+
+THEN Churn
+
+------------------------
+
+Rule 36
+IF
+TechSupport_No >= 0.33
+AND OnlineSecurity_No >= 0.4
+AND DeviceProtection_No >= 0.63
+AND gender_Female <= 0.45
+AND StreamingTV_No <= 0.9
+AND StreamingMovies_No <= 0.85
+AND PaymentMethod_Electronic check >= 0.61
+AND OnlineBackup_Yes <= 0.77
+
+THEN Churn
+
+------------------------
+
+================================
+
+Total rules: 36
+
+Average conditions per rule: 6.67
+
+Total logical conditions: 240

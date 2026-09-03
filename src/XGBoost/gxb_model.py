@@ -9,35 +9,59 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score, brier_score_loss
 from sklearn.calibration import CalibratedClassifierCV, calibration_curve
 
+import argparse
+
 # ---------------------------------------------------------------------------
 # Paths & shared utilities
 # ---------------------------------------------------------------------------
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir  = os.path.dirname(current_dir)
+project_root = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 
-import utils
+from utils import save_scores
 
 # ---------------------------------------------------------------------------
-# Data loading & encoding
+# Argument parsing
 # ---------------------------------------------------------------------------
-csv_path = os.path.join(parent_dir, 'data', 'data_ecommerce_customer_churn.csv')
-df = pd.read_csv(csv_path)
-df = pd.get_dummies(df, columns=["PreferedOrderCat", "MaritalStatus"])
+parser = argparse.ArgumentParser()
+parser.add_argument("--dataset", type=str, default="ecommerce", choices=["ecommerce", "telco"])
+args = parser.parse_args()
+
+# ---------------------------------------------------------------------------
+# Data Loading & Minimal Preprocessing
+# ---------------------------------------------------------------------------
+if args.dataset == "ecommerce":
+    csv_path = os.path.join(project_root, 'data', 'ecommerce', 'data_ecommerce_customer_churn.csv')
+    df = pd.read_csv(csv_path)
+    df = pd.get_dummies(df, columns=["PreferedOrderCat", "MaritalStatus"])
+else:
+    csv_path = os.path.join(project_root, 'data', 'telco', 'TEST_telco_customer_churn.csv')
+    df = pd.read_csv(csv_path)
+    if 'customerID' in df.columns:
+        df = df.drop('customerID', axis=1)
+    if 'TotalCharges' in df.columns and df['TotalCharges'].dtype == object:
+        df['TotalCharges'] = pd.to_numeric(df['TotalCharges'].replace(r'^\s*$', 'NaN', regex=True), errors='coerce')
+    if 'Churn' in df.columns and set(df['Churn'].dropna().unique()).issubset({'Yes', 'No'}):
+        df['Churn'] = df['Churn'].map({'Yes': 1, 'No': 0})
+        
+    nominal_cols = ["gender", "Partner", "Dependents", "PhoneService", "MultipleLines", "InternetService", 
+                    "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", 
+                    "StreamingMovies", "Contract", "PaperlessBilling", "PaymentMethod"]
+    df = pd.get_dummies(df, columns=[c for c in nominal_cols if c in df.columns])
 
 y = df['Churn'].values
 X = df.drop('Churn', axis=1).values
 
 # ---------------------------------------------------------------------------
 # Model factory
-# Hyperparameters selected via GridSearchCV optimising F1 score
 # ---------------------------------------------------------------------------
-def make_xgb():
+def make_xgb(scale_pos_weight):
     return XGBClassifier(
         n_estimators=200,
         max_depth=4,
         learning_rate=0.2,
-        scale_pos_weight=3,
+        scale_pos_weight=scale_pos_weight,
         subsample=0.8,
         colsample_bytree=1,
         random_state=42
@@ -59,14 +83,18 @@ oof_prob_platt = []
 oof_prob_iso   = []
 
 print("=" * 60)
-print("XGBoost  —  5-Fold Stratified Cross-Validation")
+print(f"XGBoost  —  5-Fold Stratified Cross-Validation ({args.dataset})")
 print("=" * 60)
 
 for fold, (train_idx, test_idx) in enumerate(skf.split(X, y), start=1):
     X_train, X_test = X[train_idx], X[test_idx]
     y_train, y_test = y[train_idx], y[test_idx]
 
-    xgb = make_xgb()
+    num_neg = np.sum(y_train == 0)
+    num_pos = np.sum(y_train == 1)
+    dynamic_scale_pos_weight = num_neg / num_pos if num_pos > 0 else 1.0
+
+    xgb = make_xgb(dynamic_scale_pos_weight)
 
     start = time.perf_counter()
     xgb.fit(X_train, y_train)
@@ -76,7 +104,7 @@ for fold, (train_idx, test_idx) in enumerate(skf.split(X, y), start=1):
     preds = xgb.predict(X_test)
 
     # --- Classification metrics (logged to CSV) ---
-    utils.save_scores("scores_from_xgboost", current_dir, y_test, preds, time_needed)
+    utils.save_scores("scores_from_xgboost", current_dir, y_test, preds, time_needed, dataset=args.dataset)
 
     # --- Brier score (uncalibrated) ---
     y_prob_xgb = xgb.predict_proba(X_test)[:, 1]

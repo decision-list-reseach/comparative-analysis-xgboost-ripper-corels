@@ -1,6 +1,6 @@
 # Configuration for CORELS preprocessing pipeline
 dataset:
-  path: "data/data_ecommerce_customer_churn.csv"
+  path: "../data/ecommerce/data_ecommerce_customer_churn.csv"
   target_column: "Churn"
 
 discretization:

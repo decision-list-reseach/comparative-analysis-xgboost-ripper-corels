@@ -1,0 +1,32 @@
+dataset:
+  path: "../data/telco/TEST_telco_customer_churn.csv"
+  target_column: "Churn"
+
+discretization:
+  strategy: "quantile"
+  n_bins: 4
+
+features:
+  binary:
+    - "SeniorCitizen"
+  nominal:
+    - "gender"
+    - "Partner"
+    - "Dependents"
+    - "PhoneService"
+    - "PaperlessBilling"
+    - "MultipleLines"
+    - "InternetService"
+    - "OnlineSecurity"
+    - "OnlineBackup"
+    - "DeviceProtection"
+    - "TechSupport"
+    - "StreamingTV"
+    - "StreamingMovies"
+    - "Contract"
+    - "PaymentMethod"
+  ordinal: []
+  continuous:
+    - "tenure"
+    - "MonthlyCharges"
+    - "TotalCharges"

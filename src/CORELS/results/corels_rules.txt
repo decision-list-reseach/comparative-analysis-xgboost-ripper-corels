@@ -1,0 +1,5 @@
+RULELIST:
+if [Complain && Tenure <= 3.00]:
+  Churn = True
+else 
+  Churn = False

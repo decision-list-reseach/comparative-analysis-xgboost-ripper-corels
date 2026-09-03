@@ -5,19 +5,33 @@ from pipelines import build_corels_pipeline
 import sklearn
 sklearn.set_config(transform_output="pandas")
 
+import argparse
+
 def load_config(config_path):
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, default="config.yaml")
+    parser.add_argument("--output", type=str, default="data/data_ecommerce_customer_churn_corels.csv")
+    args = parser.parse_args()
+
     current_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(current_dir)
-    config_path = os.path.join(current_dir, "config.yaml")
+    config_path = os.path.join(current_dir, args.config) if not os.path.isabs(args.config) else args.config
     config = load_config(config_path)
     
     data_path = os.path.join(base_dir, config['dataset']['path'])
     print(f"Loading dataset from: {data_path}")
     df = pd.read_csv(data_path)
+    
+    if 'customerID' in df.columns:
+        df = df.drop(columns=['customerID'])
+    if 'TotalCharges' in df.columns and df['TotalCharges'].dtype == object:
+        df['TotalCharges'] = pd.to_numeric(df['TotalCharges'].replace(r'^\s*$', 'NaN', regex=True), errors='coerce')
+    if 'Churn' in df.columns and set(df['Churn'].dropna().unique()).issubset({'Yes', 'No'}):
+        df['Churn'] = df['Churn'].map({'Yes': 1, 'No': 0})
     
     target_col = config['dataset']['target_column']
     y = df[target_col]
@@ -75,7 +89,7 @@ if __name__ == "__main__":
     # Re-attach target variable
     X_transformed[target_col] = y
     
-    output_path = os.path.join(base_dir, "data", "data_ecommerce_customer_churn_corels.csv")
+    output_path = os.path.join(base_dir, args.output) if not os.path.isabs(args.output) else args.output
     print(f"Saving preprocessed binary dataset to: {output_path}")
     X_transformed.to_csv(output_path, index=False)
     

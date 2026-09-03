@@ -1,0 +1,25 @@
+CORELS Rule List
+================
+
+Parameters:
+c = 0.01
+max_card = 2
+policy = lower_bound
+n_iter = 10000
+
+================================
+Rule List
+================================
+
+RULELIST:
+if [InternetService_Fiber optic && tenure <= 9.00]:
+  Churn = True
+else 
+  Churn = False
+================================
+
+Total rules: 1
+
+Average conditions per rule: 2.00
+
+Total logical conditions: 2

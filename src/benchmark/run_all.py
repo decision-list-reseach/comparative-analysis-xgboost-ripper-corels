@@ -3,21 +3,20 @@ import subprocess
 import pandas as pd
 import re
 
-# Resolve root directory based on benchmark/ location
+# Resolve directories
 current_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.dirname(current_dir)
+src_dir = os.path.dirname(current_dir)
+project_root = os.path.dirname(src_dir)
 
 def run_script(script_path):
     print(f"Executing {script_path}...")
-    # Use the venv
-    venv_python = os.path.join(root_dir, ".venv_corels_310", "bin", "python")
+    venv_python = os.path.join(project_root, ".venv_corels_310", "bin", "python")
     if not os.path.exists(venv_python):
-        # Fallback to default python if venv not found
         venv_python = "python"
         
     result = subprocess.run(
         [venv_python, script_path],
-        cwd=root_dir,
+        cwd=src_dir,
         capture_output=True,
         text=True
     )
@@ -30,7 +29,6 @@ def get_metrics(csv_path):
     if not os.path.exists(csv_path):
         return None
     df = pd.read_csv(csv_path)
-    # Get the last 5 rows representing the 5 CV folds
     df_last_5 = df.tail(5)
     return df_last_5.mean().to_dict()
 
@@ -58,8 +56,14 @@ def format_float(val):
     if val is None: return "N/A"
     return f"{val:.4f}"
 
+import argparse
+
 def main():
-    print("--- Starting Benchmark Orchestrator ---")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", type=str, default="ecommerce", choices=["ecommerce", "telco"])
+    args = parser.parse_args()
+    
+    print(f"--- Starting Benchmark Orchestrator ({args.dataset}) ---")
     
     scripts = [
         "XGBoost/gxb_model.py",
@@ -68,16 +72,36 @@ def main():
     ]
     
     for s in scripts:
-        run_script(s)
+        print(f"Executing {s}...")
+        venv_python = os.path.join(project_root, ".venv_corels_310", "bin", "python")
+        if not os.path.exists(venv_python):
+            venv_python = "python"
+        
+        result = subprocess.run(
+            [venv_python, s, "--dataset", args.dataset],
+            cwd=src_dir,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            print(f"Error executing {s}:\n{result.stderr}")
+        else:
+            print(f"Successfully executed {s}.")
         
     print("\n--- Aggregating Results ---")
     
-    xgb_metrics = get_metrics(os.path.join(root_dir, "XGBoost", "logs", "scores_from_xgb1.csv"))
-    rip_metrics = get_metrics(os.path.join(root_dir, "RIPPER", "logs", "scores_from_ripper.csv"))
-    cor_metrics = get_metrics(os.path.join(root_dir, "CORELS", "logs", "scores_from_corels.csv"))
+    xgb_metrics = get_metrics(os.path.join(src_dir, "XGBoost", "logs", args.dataset, "scores_from_xgboost.csv"))
+    if xgb_metrics is None:
+        xgb_metrics = get_metrics(os.path.join(src_dir, "XGBoost", "logs", args.dataset, "scores_from_xgb1.csv"))
+
+    rip_metrics = get_metrics(os.path.join(src_dir, "RIPPER", "logs", args.dataset, "scores_from_ripper.csv"))
+    cor_metrics = get_metrics(os.path.join(src_dir, "CORELS", "logs", args.dataset, "scores_from_corels.csv"))
     
-    rip_stats = get_rule_stats(os.path.join(root_dir, "results", "ripper_rules.txt"))
-    cor_stats = get_rule_stats(os.path.join(root_dir, "results", "corels_rules.txt"))
+    rip_stats = get_rule_stats(os.path.join(project_root, "results", args.dataset, "ripper_rules_test.txt"))
+    if rip_stats['Total rules'] == 'N/A':
+        rip_stats = get_rule_stats(os.path.join(project_root, "results", args.dataset, "ripper_rules.txt"))
+        
+    cor_stats = get_rule_stats(os.path.join(project_root, "results", args.dataset, "corels_rules.txt"))
     xgb_stats = {'Total rules': 'Black-box', 'Total logical conditions': 'Black-box'}
     
     # Calculate rankings dynamically
@@ -97,7 +121,7 @@ def main():
     interp_ranking_str = "\n".join([f"{i+1}. **{m[0]}** ({m[1]} conditions)" for i, m in enumerate(models_interp)])
     interp_ranking_str += f"\n{len(models_interp)+1}. **XGBoost** (Black-box ensemble)"
     
-    markdown_content = f"""# Final Benchmark Leaderboard
+    markdown_content = f"""# Final Benchmark Leaderboard ({args.dataset})
 
 This document provides a comprehensive comparison of all trained models based on the latest 5-fold cross-validation execution.
 
@@ -122,7 +146,7 @@ This document provides a comprehensive comparison of all trained models based on
 - **Interpretability:** CORELS produces a provably optimal, highly interpretable rule list with only {cor_stats.get('Total logical conditions', 'N/A')} conditions. RIPPER achieves better predictive performance but generates a more complex ruleset ({rip_stats.get('Total logical conditions', 'N/A')} conditions).
 """
 
-    out_path = os.path.join(root_dir, "results", "final_benchmark_leaderboard.md")
+    out_path = os.path.join(project_root, "results", args.dataset, "final_benchmark_leaderboard.md")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w") as f:
         f.write(markdown_content)
